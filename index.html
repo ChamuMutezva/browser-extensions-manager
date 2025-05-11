@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- displays site properly based on user's device -->
+
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="./assets/images/favicon-32x32.png"
+        />
+
+        <title>Frontend Mentor | Browser extensions manager UI</title>
+        <link rel="stylesheet" href="/css/styles.css" />
+        <script defer src="/js/main.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <a href="#">
+                    <img
+                        class="logo"
+                        src="/assets/images/logo.svg"
+                        alt="extensions"
+                    />
+                    <span class="visually-hidden">Extensions</span>
+                </a>
+                <button
+                    id="theme-switcher"
+                    type="button"
+                    class="theme-switcher"
+                    aria-live="polite"
+                    aria-label="Switch to dark theme"
+                >
+                    <!-- Sun icon -->
+                    <img
+                        class="theme-icon sun"
+                        src="/assets/images/icon-sun.svg"
+                        alt="Light mode"
+                    />
+                    <!-- Moon icon -->
+                    <img
+                        class="theme-icon moon"
+                        src="/assets/images/icon-moon.svg"
+                        alt="Dark mode"
+                    />
+                </button>
+            </header>
+            <main class="main">
+                <div class="control-panel">
+                    <h2 class="main-title">Extensions List</h2>
+                    <fieldset class="status-filter">
+                        <legend class="visually-hidden">
+                            Filter extensions by status
+                        </legend>
+
+                        <div
+                            class="radio-group"
+                            role="radiogroup"
+                            aria-labelledby="status-filter-label"
+                        >
+                            <span
+                                id="status-filter-label"
+                                class="visually-hidden"
+                                >Extension status</span
+                            >
+
+                            <label class="radio-option">
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="all"
+                                    checked
+                                    aria-checked="true"
+                                    class="visually-hidden"
+                                />
+                                <span
+                                    class="radio-custom"
+                                    aria-hidden="true"
+                                ></span>
+                                <span class="radio-label">All</span>
+                            </label>
+
+                            <label class="radio-option">
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="active"
+                                    aria-checked="false"
+                                    class="visually-hidden"
+                                />
+                                <span
+                                    class="radio-custom"
+                                    aria-hidden="true"
+                                ></span>
+                                <span class="radio-label">Active</span>
+                            </label>
+
+                            <label class="radio-option">
+                                <input
+                                    type="radio"
+                                    name="status"
+                                    value="inactive"
+                                    aria-checked="false"
+                                    class="visually-hidden"
+                                />
+                                <span
+                                    class="radio-custom"
+                                    aria-hidden="true"
+                                ></span>
+                                <span class="radio-label">Inactive</span>
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="cards-container"></div>
+            </main>
+        </div>
+    </body>
+</html>
