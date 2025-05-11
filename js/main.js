@@ -76,12 +76,12 @@ document.addEventListener("DOMContentLoaded", async function () {
             card.innerHTML = `           
             <div class="card__content">
                 <div class="card-details">
-                    <img class="card__logo" src="${ext.logo}" alt="${
+                    <img class="card-logo" src="${ext.logo}" alt="${
                 ext.name
             } logo">
-                     <div class="card__info">
-                        <h3>${ext.name}</h3>
-                        <p>${ext.description}</p>
+                     <div class="card-info">
+                        <h3 class="card-title">${ext.name}</h3>
+                        <p class="card-description">${ext.description}</p>
                      </div>
                 </div>
                 <div class="card-actions">

@@ -9,7 +9,7 @@
 
 body {
     font-family: var(--font-family);
-    background-image: var(--light-gradient);
+    background-image: var(--background-image);
     transition: background-image 0.3s ease;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -17,10 +17,7 @@ body {
     min-height: 100vh;
     padding: var(--spacing-2);
 }
-.dark-theme {
-    background-image: var(--dark-gradient);
-    color: #ffffff;
-}
+
 img,
 picture,
 video,
@@ -72,11 +69,6 @@ a {
     /* Font Family */
     --font-family: "Noto Sans", sans-serif;
     /* Colors */
-    --color-primary: #c7231a;
-    --color-secondary: #1a1a1a;
-    --color-background: #ffffff;
-    --color-text: #333333;
-    --color-border: #eaeaea;
     --neutral-900: #091540;
     --neutral-800: #202535;
     --neutral-700: #2f364b;
@@ -88,8 +80,19 @@ a {
     --red-400: #f25c54;
     --red-500: #de4840;
     --red-700: #c7231a;
+    --color-primary: var(--neutral-0);
+    --color-secondary: var(--red-700);
+    --color-background: #ffffff;
+    --color-text: var(--neutral-900);
+    --color-subtext: var(--neutral-600);
+    --hover-background: var(--neutral-200);
+    --button-background: inherit;
+    --button-text: var(--neutral-900);
+    --button-border: var(--neutral-300);
+    --theme-switcher-background: var(--neutral-100);
+    --color-border: #eaeaea;
     --light-gradient: linear-gradient(180deg, #ebf2fc 0%, #eefbf9 100%);
-    --dark-gradient: linear-gradient(180deg, #04091b 0%, #091540 100%);
+    --background-image: var(--light-gradient);
 
     /* Font Sizes */
     --font-size-xs: 1rem; /* 16px */
@@ -155,6 +158,28 @@ a {
     --radius-20: 1.25rem; /* 20px */
     --radius-24: 1.5rem; /* 24px */
     --radius-full: 999px;
+
+    --sun-opacity: 0;
+
+    --sun-rotation: 0deg;
+    --moon-opacity: 1;
+    --moon-rotation: 0deg;
+
+    .dark-theme {
+        --color-background: #1a1a1a;
+        --color-primary: var(--neutral-800);
+        --color-text: var(--neutral-0);
+        --color-subtext: var(--neutral-300);
+        --hover-background: var(--neutral-600);
+        --color-border: #444444;
+        --dark-gradient: linear-gradient(180deg, #04091b 0%, #091540 100%);
+        --background-image: var(--dark-gradient);
+        --theme-switcher-background: var(--neutral-700);
+        --sun-opacity: 1;
+        --sun-rotation: -45deg;
+        --moon-opacity: 0;
+        --moon-rotation: 45deg;
+    }
 }
 
 .container {
@@ -169,25 +194,19 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--neutral-0);
+    background-color: var(--color-primary);
     padding: var(--spacing-1);
     border-radius: var(--radius-8);
 }
 .main-title {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
-    color: var(--neutral-900);
+    color: var(--color-text);
     line-height: var(--line-height-xs);
-}
-.dark-theme .main-title {
-    color: var(--neutral-0);
 }
 
 .dark-theme .logo {
     filter: brightness(0) invert(1);
-}
-.dark-theme .header {
-    background: var(--neutral-800);
 }
 
 .main {
@@ -199,7 +218,7 @@ a {
 .theme-switcher {
     --size: 3.125rem;
     --icon-size: 1.5rem;
-    background-color: var(--neutral-100);
+    background-color: var(--theme-switcher-background);
     border: none;
     padding: 0;
     position: relative;
@@ -215,9 +234,6 @@ a {
     align-items: center;
     justify-content: center;
 }
-.dark-theme .theme-switcher {
-    background-color: var(--neutral-700);
-}
 
 /* Apply to both icons */
 .theme-icon {
@@ -227,27 +243,16 @@ a {
     position: absolute; /* Keep absolute positioning for overlay effect */
     margin: auto; /* Helps with centering */
 }
-
-/* Light mode state (when body does NOT have dark-theme class) */
-body:not(.dark-theme) .sun {
-    opacity: 0;
-    transform: rotate(0deg);
+/* Sun Icon */
+.sun {
+    opacity: var(--sun-opacity, 0);
+    transform: rotate(var(--sun-rotation, 0deg));
 }
 
-body:not(.dark-theme) .moon {
-    opacity: 1;
-    transform: rotate(0deg);
-}
-
-/* Dark mode state (when body HAS dark-theme class) */
-body.dark-theme .sun {
-    opacity: 1;
-    transform: rotate(-45deg);
-}
-
-body.dark-theme .moon {
-    opacity: 0;
-    transform: rotate(45deg);
+/* Moon Icon */
+.moon {
+    opacity: var(--moon-opacity, 1);
+    transform: rotate(var(--moon-rotation, 0deg));
 }
 
 /* Visually hide elements but keep them accessible */
@@ -273,7 +278,6 @@ body.dark-theme .moon {
 .radio-group {
     display: flex;
     gap: 0.5rem;
-    background: var(--filter-bg, #f5f5f5);
     padding: 0.5rem;
     border-radius: 0.5rem;
 }
@@ -298,8 +302,8 @@ body.dark-theme .moon {
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     font-size: 1rem;
-    color: var(--text-primary, #333);
-    background: transparent;
+    color: var(--color-text);
+    background: var(--color-background);
     transition: all 0.2s ease;
 }
 
@@ -311,7 +315,7 @@ body.dark-theme .moon {
 
 /* Hover State */
 .radio-option:hover .radio-label {
-    background: var(--filter-hover, #e0e0e0);
+    background: var(--hover-background, #e0e0e0);
 }
 
 /* Focus State */
@@ -329,10 +333,6 @@ body.dark-theme .moon {
     border-radius: var(--radius-4);
     gap: var(--spacing-2);
 }
-.dark-theme .control-panel {
-    background: var(--neutral-700);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
 
 .cards-container {
     display: grid;
@@ -341,7 +341,7 @@ body.dark-theme .moon {
 }
 
 .card {
-    background: var(--neutral-0);
+    background: var(--color-primary);
     border-radius: var(--radius-4);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: var(--spacing-2);
@@ -355,10 +355,19 @@ body.dark-theme .moon {
     align-items: start;
 }
 
-.dark-theme .card {
-    background: var(--neutral-700);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+.card-title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    line-height: var(--line-height-sm);
 }
+.card-description {
+    font-size: var(--font-size-xs);
+    color: var(--color-subtext);
+    line-height: var(--line-height-md);
+    letter-spacing: var(--letter-spacing-xs);
+}
+
 .card:hover {
     transform: translateY(-2px);
 }
@@ -406,16 +415,16 @@ body.dark-theme .moon {
 }
 
 input:checked + .slider {
-    background-color: var(--color-primary);
+    background-color: var(--color-secondary);
 }
 
 input:checked + .slider::before {
     transform: translateX(1.5rem);
 }
 .remove-btn {
-    background: var(--neutral-0);
-    color: var(--neutral-700);
-    border: 1px solid var(--neutral-300);
+    background: var(--button-background);
+    color: var(--color-text);
+    border: 1px solid var(--button-border);
     padding-block: var(--spacing-075);
     padding-inline: var(--spacing-2);
     border-radius: var(--radius-full);
@@ -424,11 +433,6 @@ input:checked + .slider::before {
 }
 .remove-btn:hover {
     background: var(--red-700);
-}
-.dark-theme .remove-btn {
-    background: var(--neutral-800);
-    color: var(--neutral-0);
-    border: 1px solid var(--neutral-600);
 }
 
 @media (min-width: 38.75rem) {
