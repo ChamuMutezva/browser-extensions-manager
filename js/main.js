@@ -1,3 +1,4 @@
+"use strict";
 document.addEventListener("DOMContentLoaded", async function () {
     const themeSwitcher = document.getElementById("theme-switcher");
     const body = document.body;
@@ -10,7 +11,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const prefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
         ).matches;
-
+        console.log("Saved theme:", savedTheme);
+        console.log("Prefers dark:", prefersDark);
         if (savedTheme) {
             body.classList.toggle("dark-theme", savedTheme === "dark");
         } else if (prefersDark) {
@@ -74,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             card.className = `card ${ext.isActive ? "active" : "inactive"}`;
             card.dataset.status = ext.isActive ? "active" : "inactive";
             card.innerHTML = `           
-            <div class="card__content">
+            <div class="card-content">
                 <div class="card-details">
                     <img class="card-logo" src="${ext.logo}" alt="${
                 ext.name
@@ -107,7 +109,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 );
             });
 
-            // Add event listener for the toggle switch
+            // Add event listener for the card toggle switch
             card.querySelector(".toggle-switch").addEventListener(
                 "change",
                 (e) => {
@@ -130,11 +132,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                         (currentFilter === "active" && !ext.isActive) ||
                         (currentFilter === "inactive" && ext.isActive)
                     ) {
-                        card.style.display = "none";
+                       // card.style.display = "none";
+                        card.classList.add("card-hidden");
                     }
 
-                    // Optional: Update your data store if you're maintaining one
-                    updateExtensionStatus(ext.name, ext.isActive);
+                    // Update the data store
+                   // updateExtensionStatus(ext.name, ext.isActive);
                 }
             );
 
