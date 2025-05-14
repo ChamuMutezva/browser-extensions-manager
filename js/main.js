@@ -78,9 +78,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             card.innerHTML = `           
             <div class="card-content">
                 <div class="card-details">
-                    <img class="card-logo" src="${ext.logo}" alt="${
-                ext.name
-            } logo">
+                    <img class="card-logo" src="${ext.logo}" alt="${ext.name}">
                      <div class="card-info">
                         <h3 class="card-title">${ext.name}</h3>
                         <p class="card-description">${ext.description}</p>
@@ -89,12 +87,25 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <div class="card-actions">
                     <button class="remove-btn" data-id="${ext.name}">
                          Remove
+                         <span class="visually-hidden"> ${
+                             ext.name
+                         } card from list</span>
                     </button>
                      <label class="switch">
-                          <input type="checkbox" class="toggle-switch" data-id="${
-                              ext.name
-                          }" ${ext.isActive ? "checked" : ""}>
-                        <span class="slider"></span>
+                        <span class="visually-hidden">Toggle extension status</span>
+                        <input 
+                             type="checkbox" 
+                             class="toggle-switch" 
+                             data-id="${ext.name}"
+                             ${ext.isActive ? "checked" : ""}
+                             role="switch"
+                             aria-labelledby="toggle-label-${ext.name}"
+                             aria-checked="${ext.isActive ? "true" : "false"}"
+                             >
+                             <span class="slider" aria-hidden="true"></span>
+                             <span id="toggle-label-${ext.name}" class="visually-hidden">
+                                ${ext.name} extension is ${ext.isActive ? "active" : "inactive"}
+                            </span>
                      </label>
                 </div>
             </div>
@@ -113,6 +124,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             card.querySelector(".toggle-switch").addEventListener(
                 "change",
                 (e) => {
+                    const isChecked = e.target.checked;
+                    e.target.setAttribute("aria-checked", isChecked.toString());
                     // Update the extension's active status
                     ext.isActive = e.target.checked;
 
@@ -132,12 +145,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                         (currentFilter === "active" && !ext.isActive) ||
                         (currentFilter === "inactive" && ext.isActive)
                     ) {
-                       // card.style.display = "none";
                         card.classList.add("card-hidden");
                     }
 
                     // Update the data store
-                   // updateExtensionStatus(ext.name, ext.isActive);
+                    // updateExtensionStatus(ext.name, ext.isActive);
                 }
             );
 
