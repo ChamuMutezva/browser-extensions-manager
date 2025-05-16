@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const prefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
         ).matches;
-        console.log("Saved theme:", savedTheme);
-        console.log("Prefers dark:", prefersDark);
         if (savedTheme) {
             body.classList.toggle("dark-theme", savedTheme === "dark");
         } else if (prefersDark) {
@@ -49,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         const response = await fetch("/data.json");
         const extensions = await response.json();
-        console.log("Extensions loaded:", extensions);
         renderExtensions(extensions);
     } catch (error) {
         console.error("Error loading extensions:", error);
@@ -103,8 +100,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                              aria-checked="${ext.isActive ? "true" : "false"}"
                              >
                              <span class="slider" aria-hidden="true"></span>
-                             <span id="toggle-label-${ext.name}" class="visually-hidden">
-                                ${ext.name} extension is ${ext.isActive ? "active" : "inactive"}
+                             <span id="toggle-label-${
+                                 ext.name
+                             }" class="visually-hidden">
+                                ${ext.name} extension is ${
+                ext.isActive ? "active" : "inactive"
+            }
                             </span>
                      </label>
                 </div>
