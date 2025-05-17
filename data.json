@@ -25,7 +25,7 @@
     },
     {
         "logo": "./assets/images/logo-tab-master-pro.svg",
-        "name": "TabMaster Pro",
+        "name": "TabMasterPro",
         "description": "Organizes browser tabs into groups and sessions.",
         "isActive": true
     },
