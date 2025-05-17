@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <div class="card-details">
                     <img class="card-logo" src="${ext.logo}" alt="${ext.name}">
                      <div class="card-info">
-                        <h3 class="card-title">${ext.name}</h3>
+                        <h2 class="card-title">${ext.name}</h2>
                         <p class="card-description">${ext.description}</p>
                      </div>
                 </div>
