@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const body = document.body;
     const radioGroup = document.querySelector(".radio-group");
     const radios = document.querySelectorAll('input[name="status"]');
+    const API_URL =
+        window.location.hostname === "localhost"
+            ? "http://localhost:3000/api/extensions"
+            : "https://browser-extensions-manager-backend.onrender.com";
 
     // Set initial theme based on localStorage or system preference
     function setInitialTheme() {
@@ -45,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
     try {
-        const response = await fetch("/data.json");
+        const response = await fetch(API_URL);
         const extensions = await response.json();
         renderExtensions(extensions);
     } catch (error) {
@@ -55,12 +59,20 @@ document.addEventListener("DOMContentLoaded", async function () {
     let allExtensions = [];
 
     async function loadExtensions() {
+        const container = document.querySelector(".cards-container");
+        container.innerHTML = `<div class="spinner">Loading...</div>`;
         try {
-            const response = await fetch("data.json");
+            const response = await fetch(API_URL);
+            if (!response.ok)
+                throw new Error(`HTTP error! Status: ${response.status}`);
             allExtensions = await response.json();
             renderExtensions(allExtensions);
         } catch (error) {
             console.error("Error loading extensions:", error);
+            container.innerHTML = `
+                <p class="error">Failed to load extensions.</p>
+                <button onclick="loadExtensions()">Retry</button>
+            `;
         }
     }
 
