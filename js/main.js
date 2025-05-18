@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         const prefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
         ).matches;
-        console.log("Saved theme:", savedTheme);
-        console.log("Prefers dark:", prefersDark);
         if (savedTheme) {
             body.classList.toggle("dark-theme", savedTheme === "dark");
         } else if (prefersDark) {
@@ -53,7 +51,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         const response = await fetch(API_URL);
         const extensions = await response.json();
-        console.log("Extensions loaded:", extensions);
         renderExtensions(extensions);
     } catch (error) {
         console.error("Error loading extensions:", error);
@@ -92,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 <div class="card-details">
                     <img class="card-logo" src="${ext.logo}" alt="${ext.name}">
                      <div class="card-info">
-                        <h3 class="card-title">${ext.name}</h3>
+                        <h2 class="card-title">${ext.name}</h2>
                         <p class="card-description">${ext.description}</p>
                      </div>
                 </div>
