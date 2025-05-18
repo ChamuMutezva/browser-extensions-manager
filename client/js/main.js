@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
     try {
-        const response = await fetch("/data.json");
+        // const response = await fetch("/data.json");
+        const response = await fetch("http://localhost:3000/api/extensions");
         const extensions = await response.json();
         console.log("Extensions loaded:", extensions);
         renderExtensions(extensions);
@@ -58,12 +59,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     let allExtensions = [];
 
     async function loadExtensions() {
+        const container = document.querySelector(".cards-container");
+        container.innerHTML = `<div class="spinner">Loading...</div>`;
         try {
-            const response = await fetch("data.json");
+            const response = await fetch(
+                "http://localhost:3000/api/extensions"
+            );
+            if (!response.ok)
+                throw new Error(`HTTP error! Status: ${response.status}`);
             allExtensions = await response.json();
             renderExtensions(allExtensions);
         } catch (error) {
             console.error("Error loading extensions:", error);
+            container.innerHTML = `
+                <p class="error">Failed to load extensions.</p>
+                <button onclick="loadExtensions()">Retry</button>
+            `;
         }
     }
 
@@ -103,8 +114,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                              aria-checked="${ext.isActive ? "true" : "false"}"
                              >
                              <span class="slider" aria-hidden="true"></span>
-                             <span id="toggle-label-${ext.name}" class="visually-hidden">
-                                ${ext.name} extension is ${ext.isActive ? "active" : "inactive"}
+                             <span id="toggle-label-${
+                                 ext.name
+                             }" class="visually-hidden">
+                                ${ext.name} extension is ${
+                ext.isActive ? "active" : "inactive"
+            }
                             </span>
                      </label>
                 </div>

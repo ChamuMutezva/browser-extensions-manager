@@ -55,6 +55,34 @@ Features
 
 - this was a revision on working with HTML, CSS and JavaScript  without any framework.
 
+#### Error in mongoose and solution.
+
+```js
+Error fetching extensions: MongooseError: Operation `browser-extension-manager.find()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (C:\Users\chamu\Documents\GitHub\browser-extensions-manager\server\node_modules\mongoose\lib\drivers\node-mongodb-native\collection.js:187:23)
+```
+
+#### Solution
+
+##### Change DNS Settings to Use Google DNS (8.8.8.8)
+
+###### On Windows 10/11
+
+- Open Network settings
+  - Right-click the network icon in the system tray and select Open Network & Internet settings.
+  - Click Change adapter options.
+- Select Your Network Adapter:
+  - Right-click your active network adapter (Wi-Fi or Ethernet) and choose Properties.
+- Change DNS Server:
+  - Select Internet Protocol Version 4 (TCP/IPv4) and click Properties.
+  - Choose Use the following DNS server addresses.
+  - Enter:
+    - Preferred DNS server: 8.8.8.8
+    - Alternate DNS server: 8.8.4.4
+  - Click OK to save.
+- Restart Network Connection:
+  - Disable and re-enable the adapter or restart your computer.
+
 ### Continued development
 
 ### Useful resources
