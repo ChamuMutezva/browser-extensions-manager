@@ -91,6 +91,7 @@
     --radius-20: 1.25rem; /* 20px */
     --radius-24: 1.5rem; /* 24px */
     --radius-full: 999px;
+    
     --sun-opacity: 0;
     --sun-rotation: 0deg;
     --moon-opacity: 1;
@@ -113,7 +114,6 @@
     }
 }
 
-/* Andy Bell's Modern CSS Reset */
 *,
 *::before,
 *::after {
@@ -218,8 +218,8 @@ a {
     outline-offset: 2px;
 }
 
-.dark-theme .logo {
-    filter: brightness(0) invert(1);
+.dark-theme .logo-text {
+    fill: var(--color-text);
 }
 
 .main {
@@ -265,8 +265,8 @@ a {
     width: var(--icon-size);
     height: var(--icon-size);
     transition: opacity 0.3s ease, transform 0.3s ease;
-    position: absolute; /* Keep absolute positioning for overlay effect */
-    margin: auto; /* Helps with centering */
+    position: absolute; 
+    margin: auto; 
 }
 
 /* Sun Icon */
@@ -491,8 +491,12 @@ input:focus + .slider {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .error {
