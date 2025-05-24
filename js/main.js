@@ -53,8 +53,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const extensions = await response.json();
         renderExtensions(extensions);
     } catch (error) {
-        console.error("Error loading extensions:", error);
-        // Fallback to hardcoded or error state
+        console.error("Error loading extensions:", error);       
     }
     let allExtensions = [];
 
@@ -78,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function renderExtensions(extensions) {
         const container = document.querySelector(".cards-container");
-        container.innerHTML = ""; // Clear existing
+        container.innerHTML = ""; 
 
         extensions.forEach((ext) => {
             const card = document.createElement("article");
