@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const API_URL =
         window.location.hostname === "localhost"
             ? "http://localhost:3000/api/extensions"
-            : "https://browser-extensions-manager-backend.onrender.com";
+            : "https://browser-extensions-manager-backend.onrender.com/api/extensions";
 
     // Set initial theme based on localStorage or system preference
     function setInitialTheme() {
