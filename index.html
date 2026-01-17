@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -21,7 +21,7 @@
             <header class="header">
                 <!--Home page link and  Logo -->
                 <a
-                    href="#"
+                    href="/"
                     class="logo-link"
                     aria-label="Go to Extensions homepage"
                 >
@@ -60,20 +60,23 @@
                     id="theme-switcher"
                     type="button"
                     class="theme-switcher"
-                    aria-live="polite"
                     aria-label="Switch to dark theme"
+                    aria-pressed="false"
+                    data-theme="light"
                 >
                     <!-- Sun icon -->
                     <img
                         class="theme-icon sun"
                         src="./assets/images/icon-sun.svg"
-                        alt="Light mode"
+                        alt=""
+                        aria-hidden="true"
                     />
                     <!-- Moon icon -->
                     <img
                         class="theme-icon moon"
                         src="./assets/images/icon-moon.svg"
-                        alt="Dark mode"
+                        alt=""
+                        aria-hidden="true"
                     />
                 </button>
             </header>

@@ -5,15 +5,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     const radioGroup = document.querySelector(".radio-group");
     const radios = document.querySelectorAll('input[name="status"]');
     const API_URL =
-        window.location.hostname === "localhost"
+        globalThis.location.hostname === "localhost"
             ? "http://localhost:3000/api/extensions"
             : "https://browser-extensions-manager-backend.onrender.com/api/extensions";
 
     // Set initial theme based on localStorage or system preference
     function setInitialTheme() {
         const savedTheme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
+        const prefersDark = globalThis.matchMedia(
+            "(prefers-color-scheme: dark)",
         ).matches;
         if (savedTheme) {
             body.classList.toggle("dark-theme", savedTheme === "dark");
@@ -31,15 +31,18 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Update ARIA label for accessibility
         themeSwitcher.setAttribute(
             "aria-label",
-            `Switch to ${isDark ? "light" : "dark"} theme`
+            `Switch to ${isDark ? "light" : "dark"} theme`,
         );
+
+        themeSwitcher.setAttribute("aria-pressed", isDark);
+        themeSwitcher.dataset.theme = isDark ? "dark" : "light";
     });
 
     // Initialize theme
     setInitialTheme();
 
     // Watch for system theme changes
-    window
+    globalThis
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", (e) => {
             if (!localStorage.getItem("theme")) {
@@ -53,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         const extensions = await response.json();
         renderExtensions(extensions);
     } catch (error) {
-        console.error("Error loading extensions:", error);       
+        console.error("Error loading extensions:", error);
     }
     let allExtensions = [];
 
@@ -77,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function renderExtensions(extensions) {
         const container = document.querySelector(".cards-container");
-        container.innerHTML = ""; 
+        container.innerHTML = "";
 
         extensions.forEach((ext) => {
             const card = document.createElement("article");
@@ -115,8 +118,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                                  ext.name
                              }" class="visually-hidden">
                                 ${ext.name} extension is ${
-                ext.isActive ? "active" : "inactive"
-            }
+                                    ext.isActive ? "active" : "inactive"
+                                }
                             </span>
                      </label>
                 </div>
@@ -128,7 +131,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             card.querySelector(".remove-btn").addEventListener("click", () => {
                 container.removeChild(card);
                 allExtensions = allExtensions.filter(
-                    (e) => e.name !== ext.name
+                    (e) => e.name !== ext.name,
                 );
             });
 
@@ -149,7 +152,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                     // Get current filter status
                     const currentFilter = document.querySelector(
-                        'input[name="status"]:checked'
+                        'input[name="status"]:checked',
                     ).value;
 
                     // If the new status doesn't match current filter, hide the card
@@ -162,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                     // Update the data store
                     // updateExtensionStatus(ext.name, ext.isActive);
-                }
+                },
             );
 
             // Add keyboard navigation for the toggle switch
@@ -181,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                             : "inactive";
                         e.preventDefault();
                     }
-                }
+                },
             );
         });
     }
@@ -190,7 +193,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function filterExtensions(status) {
         if (status === "all") return renderExtensions(allExtensions);
         const filtered = allExtensions.filter((ext) =>
-            status === "active" ? ext.isActive : !ext.isActive
+            status === "active" ? ext.isActive : !ext.isActive,
         );
         renderExtensions(filtered);
     }
